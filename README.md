@@ -28,7 +28,7 @@ npm run dev
 
 ### 🌐 **URLs**
 - **Local**: `http://localhost:3000`
-- **Produção**: *Em desenvolvimento*
+- **Produção**: `https://peixe30-sistemas-vagas.vercel.app/login`
 
 ## 📋 Sobre o Projeto
 
