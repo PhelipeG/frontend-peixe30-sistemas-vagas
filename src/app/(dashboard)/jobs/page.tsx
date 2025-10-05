@@ -1,14 +1,13 @@
 "use client";
 
-import { Plus } from "lucide-react";
-import { toast } from "sonner";
-
 import { useEffect, useState } from "react";
-
 import { useRouter } from "next/navigation";
+import { Plus } from "lucide-react";
 
-import api from "@/lib/api";
+import { useJobs } from "@/hooks/useJobs";
 
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,57 +18,39 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
 
 import { JobCard } from "@/components/jobs/job-card";
 import { Pagination } from "@/components/shared/pagination";
 
-import { Job, PaginatedResponse } from "@/types";
-
 export default function JobsPage() {
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [jobToDelete, setJobToDelete] = useState<string | null>(null);
   const router = useRouter();
 
-  const fetchJobs = async (currentPage: number) => {
-    try {
-      setIsLoading(true);
-      const response = await api.get<PaginatedResponse<Job>>("/jobs/all", {
-        params: { page: currentPage, limit: 10 },
-      });
-      setJobs(response.data.data);
-      setTotalPages(response.data.totalPages);
-    } catch (error) {
-      toast.error(
-        "Erro ao carregar vagas" +
-          (error instanceof Error ? `: ${error.message}` : "")
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {
+    jobs,
+    isLoading,
+    isDeleting,
+    page,
+    totalPages,
+    fetchJobs,
+    deleteJob,
+    setPage,
+  } = useJobs();
+
+
+  useEffect(() => {
+    fetchJobs();
+  }, [fetchJobs]);
 
   useEffect(() => {
     fetchJobs(page);
-  }, [page]);
+  }, [page, fetchJobs]);
 
   const handleDelete = async () => {
     if (!jobToDelete) return;
 
-    try {
-      await api.delete(`/jobs/deleteJob/${jobToDelete}`);
-      toast.success("Vaga deletada com sucesso");
-      fetchJobs(page);
-    } catch (error) {
-      toast.error(
-        "Erro ao deletar a vaga" +
-          (error instanceof Error ? `: ${error.message}` : "")
-      );
-    } finally {
+    const success = await deleteJob(jobToDelete);
+    if (success) {
       setJobToDelete(null);
     }
   };
@@ -147,9 +128,12 @@ export default function JobsPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete}>
-              Deletar
+            <AlertDialogCancel disabled={isDeleting}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDelete}
+              disabled={isDeleting}
+            >
+              {isDeleting ? "Deletando..." : "Deletar"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

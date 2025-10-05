@@ -1,14 +1,13 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import { ArrowLeft, Award, Frown, Users } from "lucide-react";
+import Link from "next/link";
 import { toast } from "sonner";
 
-import { useCallback, useEffect, useState } from "react";
-
-import Link from "next/link";
-import { useParams } from "next/navigation";
-
 import api from "@/lib/api";
+import { useJobs } from "@/hooks/useJobs";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,39 +15,40 @@ import { Spinner } from "@/components/ui/spinner";
 
 import { CandidateCard } from "@/components/candidates/candidate-card";
 
-import { Candidate, Job } from "@/types";
+import { Candidate } from "@/types";
 
 export default function JobCandidatesPage() {
-  const [job, setJob] = useState<Job | null>(null);
   const [candidates, setCandidates] = useState<Candidate[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [candidatesLoading, setCandidatesLoading] = useState(true);
   const [invitingId, setInvitingId] = useState<string | null>(null);
   const params = useParams();
 
-  const fetchData = useCallback(async () => {
+  const { currentJob: job, isLoading: jobLoading, fetchJobById } = useJobs();
+
+  // Fetch de candidatos (mantido separado pois é específico desta página)
+  const fetchCandidates = useCallback(async () => {
     try {
-      setIsLoading(true);
-      const [jobResponse, candidatesResponse] = await Promise.all([
-        api.get<Job>(`/jobs/${params.id}`),
-        api.get<Candidate[]>(
-          `/candidates/jobs/${params.id}/getMatchingCandidates`
-        ),
-      ]);
-      setJob(jobResponse.data);
-      setCandidates(candidatesResponse.data);
+      setCandidatesLoading(true);
+      const response = await api.get<Candidate[]>(
+        `/candidates/jobs/${params.id}/getMatchingCandidates`
+      );
+      setCandidates(response.data);
     } catch (error) {
       toast.error(
-        "Não foi possível carregar os dados" +
+        "Não foi possível carregar candidatos" +
           (error instanceof Error ? `: ${error.message}` : "")
       );
     } finally {
-      setIsLoading(false);
+      setCandidatesLoading(false);
     }
   }, [params.id]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData, params.id]);
+    if (params.id) {
+      fetchJobById(params.id as string);
+      fetchCandidates();
+    }
+  }, [params.id, fetchJobById, fetchCandidates]);
 
   const handleInvite = async (candidateId: string) => {
     setInvitingId(candidateId);
@@ -58,7 +58,7 @@ export default function JobCandidatesPage() {
         candidateId,
       });
       toast.success("Candidato convidado com sucesso!");
-      fetchData();
+      fetchCandidates();
     } catch (error) {
       toast.error(
         "Não foi possível convidar o candidato" +
@@ -68,6 +68,8 @@ export default function JobCandidatesPage() {
       setInvitingId(null);
     }
   };
+
+  const isLoading = jobLoading || candidatesLoading;
 
   if (isLoading) {
     return (
@@ -156,8 +158,6 @@ export default function JobCandidatesPage() {
           </div>
         </CardContent>
       </Card>
-
-      {/* Candidates Section */}
       <div>
         <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 px-1">
           Candidatos Compatíveis (ordenados por score)

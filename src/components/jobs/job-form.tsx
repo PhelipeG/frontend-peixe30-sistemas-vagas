@@ -3,14 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, X } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import * as z from "zod";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
-import api from "@/lib/api";
+import { useJobs } from "@/hooks/useJobs";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -39,8 +38,9 @@ interface JobFormProps {
 export function JobForm({ job, isEdit = false }: JobFormProps) {
   const [skillInput, setSkillInput] = useState("");
   const [skills, setSkills] = useState<string[]>(job?.skills || []);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+
+  const { createJob, updateJob, isSubmitting } = useJobs();
 
   const {
     register,
@@ -57,6 +57,13 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
       skills: job?.skills || [],
     },
   });
+
+  useEffect(() => {
+    if (job?.skills) {
+      setSkills(job.skills);
+      setValue("skills", job.skills);
+    }
+  }, [job?.skills, setValue]);
 
   const addSkill = () => {
     const trimmedSkill = skillInput.trim();
@@ -75,22 +82,21 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
   };
 
   const onSubmit = async (data: JobFormData) => {
-    setIsSubmitting(true);
     try {
       if (isEdit && job) {
-        await api.put(`/jobs/updateJob/${job.id}`, data);
-        toast.success("Vaga atualizada com sucesso");
+        const updatedJob = await updateJob(job.id, data);
+        if (updatedJob) {
+          router.push("/jobs");
+        }
       } else {
-        await api.post("/jobs/create", data);
-        toast.success("Vaga criada com sucesso");
+        const newJob = await createJob(data);
+        if (newJob) {
+          router.push("/jobs");
+        }
       }
-      router.push("/jobs");
     } catch (error) {
-      toast.error(
-        "Ocorreu um erro" + (error instanceof Error ? `: ${error.message}` : "")
-      );
-    } finally {
-      setIsSubmitting(false);
+      // Erro já tratado no hook
+      console.error("Erro no formulário:", error);
     }
   };
 

@@ -1,39 +1,29 @@
 "use client";
 
-import { ArrowLeft, Frown } from "lucide-react";
-
-import { useEffect, useState } from "react";
-
-import Link from "next/link";
+import { useEffect } from "react";
 import { useParams } from "next/navigation";
+import { ArrowLeft, Frown } from "lucide-react";
+import Link from "next/link";
 
-import api from "@/lib/api";
+import { useJobs } from "@/hooks/useJobs";
 
 import { Spinner } from "@/components/ui/spinner";
-
 import { JobForm } from "@/components/jobs/job-form";
 
-import { Job } from "@/types";
-
 export default function EditJobPage() {
-  const [job, setJob] = useState<Job | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
+  
+  const {
+    currentJob: job,
+    isLoading,
+    fetchJobById,
+  } = useJobs();
 
   useEffect(() => {
-    const fetchJob = async () => {
-      try {
-        const response = await api.get<Job>(`/jobs/${params.id}`);
-        setJob(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar vaga:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchJob();
-  }, [params.id]);
+    if (params.id) {
+      fetchJobById(params.id as string);
+    }
+  }, [params.id, fetchJobById]);
 
   if (isLoading) {
     return (
