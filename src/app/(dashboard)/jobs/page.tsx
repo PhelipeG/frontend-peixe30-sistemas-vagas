@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
 import { Job, PaginatedResponse } from "@/types";
-import { toast } from "sonner";
+import { JobCard } from "@/components/jobs/job-card";
+import { Pagination } from "@/components/shared/pagination";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { Spinner } from "@/components/ui/spinner";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,7 +19,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { JobCard } from "@/components/jobs/job-card";
+import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -38,7 +40,7 @@ export default function JobsPage() {
       setTotalPages(response.data.totalPages);
     } catch (error) {
       toast.error(
-        "Não foi possível carregar as vagas " +
+        "Erro ao carregar vagas" +
           (error instanceof Error ? `: ${error.message}` : "")
       );
     } finally {
@@ -59,7 +61,7 @@ export default function JobsPage() {
       fetchJobs(page);
     } catch (error) {
       toast.error(
-        "Não foi possível deletar a vaga" +
+        "Erro ao deletar a vaga" +
           (error instanceof Error ? `: ${error.message}` : "")
       );
     } finally {
@@ -76,7 +78,7 @@ export default function JobsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Vagas</h1>
@@ -84,7 +86,7 @@ export default function JobsPage() {
         </div>
         <Button onClick={() => router.push("/jobs/new")} className="w-full sm:w-auto">
           <Plus className="w-4 h-4 mr-2" />
-          <span className="sm:inline">Nova Vaga</span>
+          Nova Vaga
         </Button>
       </div>
 
@@ -107,30 +109,11 @@ export default function JobsPage() {
               />
             ))}
           </div>
-
-          {totalPages > 1 && (
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mt-6 sm:mt-8 px-4">
-              <Button
-                variant="outline"
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                disabled={page === 1}
-                className="w-full sm:w-auto"
-              >
-                Anterior
-              </Button>
-              <span className="flex items-center px-2 sm:px-4 text-xs sm:text-sm text-gray-600 order-first sm:order-none">
-                Página {page} de {totalPages}
-              </span>
-              <Button
-                variant="outline"
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                disabled={page === totalPages}
-                className="w-full sm:w-auto"
-              >
-                Próxima
-              </Button>
-            </div>
-          )}
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
         </>
       )}
 
