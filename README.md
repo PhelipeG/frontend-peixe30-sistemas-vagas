@@ -2,21 +2,11 @@
 
 Frontend da aplicação de gerenciamento de vagas e candidatos da Peixe 30, um sistema completo para matching inteligente entre vagas e candidatos.
 
-## � Sobre o Projeto
+## 🎯 Sobre o Projeto
 
 O **Peixe 30** é um sistema web moderno para gestão de vagas de emprego que utiliza algoritmos de matching para conectar candidatos às oportunidades mais compatíveis. O sistema analisa skills, experiência e outros critérios para calcular um score de compatibilidade entre candidatos e vagas.
 
-### 🎯 Principais Funcionalidades
-
-- **Gestão Completa de Vagas**: Criar, editar, visualizar e deletar vagas
-- **Matching Inteligente**: Algoritmo que calcula compatibilidade entre candidatos e vagas
-- **Sistema de Score**: Classificação visual de candidatos por compatibilidade
-- **Convites Automatizados**: Sistema de convites para candidatos qualificados
-- **Dashboard Responsivo**: Interface adaptável para desktop e mobile
-- **Autenticação Segura**: Sistema de login com JWT
-- **Paginação Avançada**: Navegação eficiente entre grandes volumes de dados
-
-## �🚀 Tecnologias Utilizadas
+## 🎯 Tecnologias Utilizadas
 
 ### Frontend
 - **Next.js 14** - Framework React com App Router
@@ -216,34 +206,6 @@ GET  /api/candidates/jobs/:jobId/getMatchingCandidates // Candidatos compatívei
 POST /api/candidates/invitations                       // Enviar convite
 ```
 
-### 📊 Estrutura de Dados
-
-```typescript
-// Tipo da Vaga
-interface Job {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  salary: string;
-  skills: string[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-// Tipo do Candidato
-interface Candidate {
-  id: string;
-  name: string;
-  email: string;
-  skills: string[];
-  experience: number;
-  score: number;        // Score de compatibilidade (0-100)
-  invited: boolean;     // Se já foi convidado
-  location: string;
-}
-```
-
 ## 📊 Sistema de Score de Compatibilidade
 
 O frontend exibe o score calculado pelo backend com indicadores visuais intuitivos:
@@ -255,12 +217,6 @@ O frontend exibe o score calculado pelo backend com indicadores visuais intuitiv
 | **40-59** | 🟡 Amarelo | "Match Moderado" | Candidato moderadamente compatível |
 | **0-39** | ⚪ Cinza | "Match Baixo" | Candidato pouco compatível |
 
-### 🧮 Critérios de Avaliação (Calculados no Backend)
-- **Skills Match**: Compatibilidade entre skills da vaga e do candidato
-- **Experiência**: Nível de experiência adequado para a posição
-- **Localização**: Proximidade geográfica (quando aplicável)
-- **Histórico**: Desempenho em posições similares
-
 ## 🔐 Credenciais de Acesso
 
 Para testar a aplicação, utilize as credenciais padrão:
@@ -270,28 +226,6 @@ Para testar a aplicação, utilize as credenciais padrão:
 🔑 Senha: admin123
 ```
 
-## 🐛 Tratamento de Erros e UX
-
-### 🔔 Sistema de Notificações
-- **Toast notifications** para feedback imediato ao usuário
-- **Mensagens de sucesso** para ações completadas
-- **Alertas de erro** com descrições claras
-
-### ✅ Validação de Formulários
-- **Validação em tempo real** com Zod e React Hook Form
-- **Feedback visual** em campos com erro
-- **Mensagens específicas** para cada tipo de erro
-
-### 🔄 Estados de Loading
-- **Spinners** durante carregamento de dados
-- **Botões desabilitados** durante submissão
-- **Skeletons** para melhor percepção de performance
-
-### 🚨 Fallbacks
-- **Páginas de erro** personalizadas
-- **Estados vazios** com orientações claras
-- **Retry automático** para falhas temporárias
-
 ## 🧪 Como Testar a Aplicação
 
 ### 1. Preparação do Ambiente
@@ -300,57 +234,6 @@ Para testar a aplicação, utilize as credenciais padrão:
 # Inicie o frontend
 npm run dev
 ```
-
-### 2. Fluxo de Teste Completo
-
-#### 🔐 **Autenticação**
-1. Acesse `http://localhost:3000`
-2. Faça login com: `admin@peixe30.com` / `admin123`
-3. Verifique redirecionamento para dashboard
-
-#### 💼 **Gestão de Vagas**
-1. **Listar vagas**: Veja todas as vagas no dashboard
-2. **Criar vaga**: 
-   - Clique em "Nova Vaga"
-   - Preencha todos os campos
-   - Adicione skills dinamicamente
-   - Submeta o formulário
-3. **Editar vaga**:
-   - Clique em "Editar" em qualquer vaga
-   - Modifique campos
-   - Salve as alterações
-4. **Deletar vaga**:
-   - Clique em "Deletar"
-   - Confirme a exclusão no modal
-
-#### 🎯 **Matching de Candidatos**
-1. **Ver candidatos**: Clique em "Ver Candidatos" em uma vaga
-2. **Analisar scores**: Observe os badges de compatibilidade
-3. **Enviar convites**: Clique em "Convidar" para candidatos não convidados
-4. **Verificar estatísticas**: Veja métricas no topo da página
-
-#### 📱 **Responsividade**
-1. Teste em diferentes tamanhos de tela
-2. Verifique navegação mobile
-3. Teste formulários em dispositivos móveis
-
-#### 🔄 **Funcionalidades Extras**
-1. **Paginação**: Navegue entre páginas de vagas
-2. **Logout**: Saia do sistema pelo header
-3. **Navegação**: Use breadcrumbs e botões de voltar
-
-### 3. Cenários de Teste
-
-| Cenário | Entrada | Resultado Esperado |
-|---------|---------|-------------------|
-| Login válido | Credenciais corretas | Redirecionamento para /jobs |
-| Login inválido | Credenciais incorretas | Mensagem de erro |
-| Criar vaga | Dados válidos | Vaga criada com sucesso |
-| Campo obrigatório | Campo vazio | Erro de validação |
-| Editar vaga | Modificação de dados | Vaga atualizada |
-| Deletar vaga | Confirmação | Vaga removida da lista |
-| Ver candidatos | Vaga com candidatos | Lista ordenada por score |
-| Convidar candidato | Candidato não convidado | Convite enviado |
 
 ## 📁 Estrutura do Projeto
 
@@ -403,11 +286,6 @@ npm start
 4. Push para a branch (`git push origin feature/nova-funcionalidade`)
 5. Abra um Pull Request
 
-## 📞 Suporte
-
-- **Desenvolvedor**: Phelipe G
-- **Repositório**: [GitHub](https://github.com/PhelipeG/frontend-peixe30-sistemas-vagas)
-- **Issues**: [Reportar problemas](https://github.com/PhelipeG/frontend-peixe30-sistemas-vagas/issues)
 
 ## 📋 Checklist de Funcionalidades
 
@@ -425,15 +303,13 @@ npm start
 - [x] ✅ Estados de loading
 - [x] ✅ Componentização modular
 
-## �📄 Licença
+## 📄 Licença
 
-Este projeto foi desenvolvido como teste técnico para a **Peixe 30 Sistemas**.
+Este projeto foi desenvolvido como teste técnico para a **Peixe 30**.
 
 ---
 
 <div align="center">
-
-**🐟 Peixe 30 - Conectando talentos às melhores oportunidades**
 
 *Desenvolvido com ❤️ usando Next.js e TypeScript*
 
