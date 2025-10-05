@@ -61,17 +61,6 @@ Antes de começar, certifique-se de ter instalado em sua máquina:
 - **Git** ([Download aqui](https://git-scm.com/))
 - **Backend da aplicação** rodando (veja o README do backend)
 
-```bash
-# Verificar código com ESLint
-npm run lint
-
-# Verificar tipos TypeScript
-npm run type-check
-```
-
-### Testes Manuais
-Para testar manualmente a aplicação, siga o [Guia de Testes](#🧪-como-testar-a-aplicação) mais abaixo neste documento.
-
 ## 📸 Screenshots do Sistema
 
 ### 🔐 Tela de Login
@@ -151,15 +140,6 @@ Para acessar o sistema, você **DEVE** usar as seguintes credenciais:
 3. Clique em "Entrar"
 4. Você será redirecionado para o dashboard principal
 
-## 🧪 Como Testar a Aplicação
-
-### 1. Preparação do Ambiente
-```bash
-# Certifique-se de que o backend está rodando
-# Inicie o frontend
-npm run dev
-```
-
 ## 📁 Estrutura do Projeto
 
 ```
@@ -192,14 +172,6 @@ src/
 NEXT_PUBLIC_API_URL=https://sua-api-producao.com/api
 NODE_ENV=production
 ```
-
-## 🤝 Contribuição
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
 
 ## ⏱️ Tempo de Desenvolvimento
 
