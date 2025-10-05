@@ -2,11 +2,53 @@
 
 Frontend da aplicação de gerenciamento de vagas e candidatos da Peixe 30, um sistema completo para matching inteligente entre vagas e candidatos.
 
-## 🎯 Sobre o Projeto
+## 🚀 Resumo Executivo
+
+### 📋 **Como Executar Localmente**
+```bash
+# 1. Clone o repositório
+git clone https://github.com/PhelipeG/frontend-peixe30-sistemas-vagas.git
+cd frontend-peixe30-sistemas-vagas
+
+# 2. Instale dependências
+npm install
+
+# 3. Configure variáveis de ambiente
+cp .env.example .env.local
+# Edite .env.local com: NEXT_PUBLIC_API_URL=http://localhost:3333/api
+
+# 4. Execute a aplicação
+npm run dev
+# Acesse: http://localhost:3000
+```
+
+### 🔑 **Credenciais de Login**
+- **Email**: `admin@peixe30.com`
+- **Senha**: `admin123`
+
+### 🌐 **URLs**
+- **Local**: `http://localhost:3000`
+- **Produção**: *Em desenvolvimento*
+
+### ⏱️ **Tempo de Desenvolvimento**
+- **Total**: ~19 horas
+- **Período**: Desenvolvido como teste técnico
+
+## 📋 Sobre o Projeto
 
 O **Peixe 30** é um sistema web moderno para gestão de vagas de emprego que utiliza algoritmos de matching para conectar candidatos às oportunidades mais compatíveis. O sistema analisa skills, experiência e outros critérios para calcular um score de compatibilidade entre candidatos e vagas.
 
-## 🎯 Tecnologias Utilizadas
+### 🎯 Principais Funcionalidades
+
+- **Gestão Completa de Vagas**: Criar, editar, visualizar e deletar vagas
+- **Matching Inteligente**: Algoritmo que calcula compatibilidade entre candidatos e vagas
+- **Sistema de Score**: Classificação visual de candidatos por compatibilidade
+- **Convites Automatizados**: Sistema de convites para candidatos qualificados
+- **Dashboard Responsivo**: Interface adaptável para desktop e mobile
+- **Autenticação Segura**: Sistema de login com JWT
+- **Paginação Avançada**: Navegação eficiente entre grandes volumes de dados
+
+## 🛠️ Stack Tecnológico
 
 ### Frontend
 - **Next.js 14** - Framework React com App Router
@@ -33,79 +75,6 @@ Antes de começar, certifique-se de ter instalado em sua máquina:
 - **Git** ([Download aqui](https://git-scm.com/))
 - **Backend da aplicação** rodando (veja o README do backend)
 
-## �️ Instalação e Configuração
-
-### 1. Clonando o Repositório
-
-```bash
-# Clone o repositório
-git clone https://github.com/PhelipeG/frontend-peixe30-sistemas-vagas.git
-
-# Entre na pasta do projeto
-cd frontend-peixe30-sistemas-vagas
-```
-
-### 2. Instalando Dependências
-
-```bash
-# Usando npm
-npm install
-
-# Ou usando yarn
-yarn install
-```
-
-### 3. Configuração das Variáveis de Ambiente
-
-```bash
-# Copie o arquivo de exemplo
-cp .env.example .env.local
-
-# Ou crie manualmente o arquivo .env.local
-```
-
-Edite o arquivo `.env.local` com as seguintes configurações:
-
-```env
-# URL da API backend
-NEXT_PUBLIC_API_URL=http://localhost:3333/api
-
-# Outras configurações opcionais
-NEXT_PUBLIC_APP_NAME=Peixe 30
-NEXT_PUBLIC_APP_VERSION=1.0.0
-```
-
-### 4. Iniciando o Servidor de Desenvolvimento
-
-```bash
-# Inicie o servidor
-npm run dev
-
-# Ou com yarn
-yarn dev
-```
-
-A aplicação estará disponível em: **http://localhost:3000**
-## 🎯 Como Executar
-
-### Ambiente de Desenvolvimento
-```bash
-npm run dev
-# ou
-yarn dev
-```
-**Acesse:** `http://localhost:3000`
-
-### Build de Produção
-```bash
-# Gerar build otimizado
-npm run build
-
-# Iniciar em modo produção
-npm start
-```
-
-### Outros Scripts Disponíveis
 ```bash
 # Verificar código com ESLint
 npm run lint
@@ -113,6 +82,9 @@ npm run lint
 # Verificar tipos TypeScript
 npm run type-check
 ```
+
+### Testes Manuais
+Para testar manualmente a aplicação, siga o [Guia de Testes](#🧪-como-testar-a-aplicação) mais abaixo neste documento.
 
 ## 📸 Screenshots do Sistema
 
@@ -140,71 +112,27 @@ npm run type-check
 ![Exclusão de Vaga](public/screenshorts/screen-exclusao-vaga.png)
 *Modal de confirmação para ações destrutivas*
 
-## 🎨 Estrutura das Páginas
+## 🌐 URLs de Produção
 
-### 🔐 `/login`
-- **Funcionalidade**: Autenticação de usuários
-- **Características**:
-  - Formulário responsivo com validação
-  - Feedback visual de erros
-  - Design moderno com componentes shadcn/ui
-  - Credenciais padrão para teste
+### Frontend
+- **URL de Produção**: Em desenvolvimento (não disponível ainda)
+- **URL de Staging**: Em desenvolvimento (não disponível ainda)
+- **Demonstração Local**: `http://localhost:3000`
 
-### 📋 `/jobs` (Dashboard Principal)
-- **Funcionalidade**: Listagem e gestão de vagas
-- **Características**:
-  - Grid responsivo de cards de vagas
-  - Paginação inteligente (10 vagas por página)
-  - Informações completas: título, descrição, localização, salário, skills
-  - Ações rápidas: Ver Candidatos, Editar, Deletar
-  - Botão destacado para criar nova vaga
+### Backend (API)
+- **URL da API**: Em desenvolvimento (não disponível ainda)
+- **Documentação da API**: Em desenvolvimento (não disponível ainda)
+- **API Local**: `http://localhost:3333/api`
 
-### ➕ `/jobs/new`
-- **Funcionalidade**: Criação de novas vagas
-- **Características**:
-  - Formulário com validação em tempo real
-  - Gerenciamento dinâmico de skills
-  - Feedback visual de erros e sucessos
-  - Design responsivo para todos os dispositivos
+### Acesso de Demonstração
+Para testar localmente:
+1. Clone e configure o backend
+2. Clone e configure o frontend
+3. Acesse `http://localhost:3000`
+4. Use as credenciais: `admin@peixe30.com` / `admin123`
 
-### ✏️ `/jobs/[id]/edit`
-- **Funcionalidade**: Edição de vagas existentes
-- **Características**:
-  - Formulário pré-preenchido com dados atuais
-  - Mesma validação robusta da criação
-  - Preservação de dados durante navegação
+> 📝 **Nota**: As URLs de produção serão adicionadas após o deploy da aplicação.
 
-### 🎯 `/jobs/[id]/candidates`
-- **Funcionalidade**: Visualização de candidatos compatíveis
-- **Características**:
-  - Lista ordenada por score de compatibilidade
-  - Informações detalhadas da vaga no cabeçalho
-  - Estatísticas em tempo real (total, score médio, convidados)
-  - Cards de candidatos com indicadores visuais de score
-  - Sistema de convites com controle de estado
-  - Design responsivo com grid adaptativo
-
-
-## 🌐 Integração com API
-
-### � Endpoints Utilizados
-
-```typescript
-// 🔐 Autenticação
-POST /api/auth/login        // Login do usuário
-GET  /api/auth/me          // Dados do usuário logado
-
-// 💼 Gestão de Vagas
-GET    /api/jobs/all       // Listar vagas (com paginação)
-POST   /api/jobs           // Criar nova vaga
-GET    /api/jobs/:id       // Obter vaga específica
-PUT    /api/jobs/:id       // Atualizar vaga
-DELETE /api/jobs/deleteJob/:id // Deletar vaga
-
-// 👥 Candidatos e Matching
-GET  /api/candidates/jobs/:jobId/getMatchingCandidates // Candidatos compatíveis
-POST /api/candidates/invitations                       // Enviar convite
-```
 
 ## 📊 Sistema de Score de Compatibilidade
 
@@ -219,12 +147,23 @@ O frontend exibe o score calculado pelo backend com indicadores visuais intuitiv
 
 ## 🔐 Credenciais de Acesso
 
-Para testar a aplicação, utilize as credenciais padrão:
+### 🔑 Login Obrigatório
+Para acessar o sistema, você **DEVE** usar as seguintes credenciais:
 
 ```
 📧 Email: admin@peixe30.com
 🔑 Senha: admin123
 ```
+
+> ⚠️ **Importante**: Estas são as únicas credenciais válidas no sistema. Sem elas, não é possível acessar as funcionalidades da aplicação.
+
+### 🚪 Como Fazer Login
+1. Acesse `http://localhost:3000`
+2. Na tela de login, digite:
+   - **Email**: `admin@peixe30.com`
+   - **Senha**: `admin123`
+3. Clique em "Entrar"
+4. Você será redirecionado para o dashboard principal
 
 ## 🧪 Como Testar a Aplicação
 
@@ -265,7 +204,6 @@ src/
 ### Variáveis de Ambiente para Produção
 ```env
 NEXT_PUBLIC_API_URL=https://sua-api-producao.com/api
-NEXT_PUBLIC_APP_NAME=Peixe 30
 NODE_ENV=production
 ```
 
@@ -302,6 +240,24 @@ npm start
 - [x] ✅ Sistema de notificações
 - [x] ✅ Estados de loading
 - [x] ✅ Componentização modular
+
+## ⏱️ Tempo de Desenvolvimento
+
+### 📊 Breakdown do Desenvolvimento
+
+| Fase | Descrição | Tempo Estimado |
+|------|-----------|----------------|
+| **Planejamento** | Análise de requisitos e arquitetura | 2h |
+| **Setup Inicial** | Configuração do projeto Next.js | 2h |
+| **UI/UX Design** | Implementação com shadcn/ui e Tailwind | 3h |
+| **Autenticação** | Sistema de login e contexto | 2h |
+| **CRUD de Vagas** | Páginas de listagem, criação e edição | 4h |
+| **Sistema de Matching** | Página de candidatos e scores | 2h |
+| **Responsividade** | Adaptação mobile-first | 2h |
+| **Validações** | Formulários e tratamento de erros | 1h |
+| **Documentação** | README e comentários | 1h |
+
+### 🎯 **Total: ~19 horas**
 
 ## 📄 Licença
 
