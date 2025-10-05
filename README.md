@@ -30,23 +30,9 @@ npm run dev
 - **Local**: `http://localhost:3000`
 - **Produção**: *Em desenvolvimento*
 
-### ⏱️ **Tempo de Desenvolvimento**
-- **Total**: ~19 horas
-- **Período**: Desenvolvido como teste técnico
-
 ## 📋 Sobre o Projeto
 
 O **Peixe 30** é um sistema web moderno para gestão de vagas de emprego que utiliza algoritmos de matching para conectar candidatos às oportunidades mais compatíveis. O sistema analisa skills, experiência e outros critérios para calcular um score de compatibilidade entre candidatos e vagas.
-
-### 🎯 Principais Funcionalidades
-
-- **Gestão Completa de Vagas**: Criar, editar, visualizar e deletar vagas
-- **Matching Inteligente**: Algoritmo que calcula compatibilidade entre candidatos e vagas
-- **Sistema de Score**: Classificação visual de candidatos por compatibilidade
-- **Convites Automatizados**: Sistema de convites para candidatos qualificados
-- **Dashboard Responsivo**: Interface adaptável para desktop e mobile
-- **Autenticação Segura**: Sistema de login com JWT
-- **Paginação Avançada**: Navegação eficiente entre grandes volumes de dados
 
 ## 🛠️ Stack Tecnológico
 
@@ -207,15 +193,6 @@ NEXT_PUBLIC_API_URL=https://sua-api-producao.com/api
 NODE_ENV=production
 ```
 
-### Build Otimizado
-```bash
-# Gerar build de produção
-npm run build
-
-# Verificar build localmente
-npm start
-```
-
 ## 🤝 Contribuição
 
 1. Faça um fork do projeto
@@ -223,23 +200,6 @@ npm start
 3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
 4. Push para a branch (`git push origin feature/nova-funcionalidade`)
 5. Abra um Pull Request
-
-
-## 📋 Checklist de Funcionalidades
-
-- [x] ✅ Sistema de autenticação JWT
-- [x] ✅ Dashboard responsivo
-- [x] ✅ CRUD completo de vagas
-- [x] ✅ Sistema de matching com score visual
-- [x] ✅ Paginação de resultados
-- [x] ✅ Validação de formulários
-- [x] ✅ Tratamento de erros
-- [x] ✅ Design system com shadcn/ui
-- [x] ✅ Typescript em 100% do código
-- [x] ✅ Layout responsivo mobile-first
-- [x] ✅ Sistema de notificações
-- [x] ✅ Estados de loading
-- [x] ✅ Componentização modular
 
 ## ⏱️ Tempo de Desenvolvimento
 
@@ -262,9 +222,7 @@ npm start
 ## 📄 Licença
 
 Este projeto foi desenvolvido como teste técnico para a **Peixe 30**.
-
 ---
-
 <div align="center">
 
 *Desenvolvido com ❤️ usando Next.js e TypeScript*
