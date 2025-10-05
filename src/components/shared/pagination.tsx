@@ -1,5 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 interface PaginationProps {
   currentPage: number;
@@ -7,7 +8,11 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-export function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+export function Pagination({
+  currentPage,
+  totalPages,
+  onPageChange,
+}: PaginationProps) {
   const canGoPrev = currentPage > 1;
   const canGoNext = currentPage < totalPages;
 
@@ -25,7 +30,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
       </Button>
 
       <span className="px-2 sm:px-4 py-2 text-xs sm:text-sm text-gray-600 order-1 sm:order-2">
-        Página <span className="font-medium">{currentPage}</span> de{' '}
+        Página <span className="font-medium">{currentPage}</span> de{" "}
         <span className="font-medium">{totalPages}</span>
       </span>
 

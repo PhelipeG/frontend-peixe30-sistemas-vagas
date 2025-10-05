@@ -1,11 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/auth-context';
-import { Spinner } from '@/components/ui/spinner';
-import { Header } from '@/components/shared/header';
-import { Footer } from '@/components/shared/footer';
+import { useEffect } from "react";
+
+import { useRouter } from "next/navigation";
+
+import { useAuth } from "@/contexts/auth-context";
+
+import { Spinner } from "@/components/ui/spinner";
+
+import { Footer } from "@/components/shared/footer";
+import { Header } from "@/components/shared/header";
 
 export default function DashboardLayout({
   children,
@@ -17,7 +21,7 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.push('/login');
+      router.push("/login");
     }
   }, [user, isLoading, router]);
 
@@ -36,7 +40,7 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header />
-      
+
       {/* Main Content */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         {children}

@@ -1,9 +1,12 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { authService } from '@/lib/auth';
-import { User } from '@/types';
+import { createContext, useContext, useEffect, useState } from "react";
+
+import { useRouter } from "next/navigation";
+
+import { authService } from "@/lib/auth";
+
+import { User } from "@/types";
 
 interface AuthContextType {
   user: User | null;
@@ -35,7 +38,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       authService.saveToken(response.token);
       authService.saveUser(response.user);
       setUser(response.user);
-      router.push('/jobs');
+      router.push("/jobs");
     } catch (error) {
       throw error;
     }
@@ -44,7 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     authService.logout();
     setUser(null);
-    router.push('/login');
+    router.push("/login");
   };
 
   return (
@@ -57,7 +60,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }

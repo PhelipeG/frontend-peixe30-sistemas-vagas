@@ -1,17 +1,22 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'next/navigation';
-import api from '@/lib/api';
-import { Candidate, Job } from '@/types';
-import { CandidateCard } from '@/components/candidates/candidate-card';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Users, Award, Frown } from 'lucide-react';
-import Link from 'next/link';
-import { toast } from 'sonner';
-import { Spinner } from '@/components/ui/spinner';
+import { ArrowLeft, Award, Frown, Users } from "lucide-react";
+import { toast } from "sonner";
 
+import { useCallback, useEffect, useState } from "react";
+
+import Link from "next/link";
+import { useParams } from "next/navigation";
+
+import api from "@/lib/api";
+
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Spinner } from "@/components/ui/spinner";
+
+import { CandidateCard } from "@/components/candidates/candidate-card";
+
+import { Candidate, Job } from "@/types";
 
 export default function JobCandidatesPage() {
   const [job, setJob] = useState<Job | null>(null);
@@ -25,12 +30,17 @@ export default function JobCandidatesPage() {
       setIsLoading(true);
       const [jobResponse, candidatesResponse] = await Promise.all([
         api.get<Job>(`/jobs/${params.id}`),
-        api.get<Candidate[]>(`/candidates/jobs/${params.id}/getMatchingCandidates`),
+        api.get<Candidate[]>(
+          `/candidates/jobs/${params.id}/getMatchingCandidates`
+        ),
       ]);
       setJob(jobResponse.data);
       setCandidates(candidatesResponse.data);
-    } catch(error) {
-      toast.error('Não foi possível carregar os dados' + (error instanceof Error ? `: ${error.message}` : ''));
+    } catch (error) {
+      toast.error(
+        "Não foi possível carregar os dados" +
+          (error instanceof Error ? `: ${error.message}` : "")
+      );
     } finally {
       setIsLoading(false);
     }
@@ -43,14 +53,17 @@ export default function JobCandidatesPage() {
   const handleInvite = async (candidateId: string) => {
     setInvitingId(candidateId);
     try {
-      await api.post('/candidates/invitations', {
+      await api.post("/candidates/invitations", {
         jobId: params.id,
         candidateId,
       });
-      toast.success('Candidato convidado com sucesso!');
+      toast.success("Candidato convidado com sucesso!");
       fetchData();
-    } catch (error){
-      toast.error('Não foi possível convidar o candidato' + (error instanceof Error ? `: ${error.message}` : ''));
+    } catch (error) {
+      toast.error(
+        "Não foi possível convidar o candidato" +
+          (error instanceof Error ? `: ${error.message}` : "")
+      );
     } finally {
       setInvitingId(null);
     }
@@ -68,8 +81,13 @@ export default function JobCandidatesPage() {
     return (
       <div className="text-center py-8 sm:py-12 px-4">
         <Frown className="w-16 h-16 sm:w-32 sm:h-32 text-gray-500 mx-auto" />
-        <p className="text-gray-500 text-sm sm:text-base mt-2 sm:mt-4">Vaga não encontrada</p>
-        <Link href="/jobs" className="text-blue-600 hover:underline mt-2 inline-block text-sm sm:text-base">
+        <p className="text-gray-500 text-sm sm:text-base mt-2 sm:mt-4">
+          Vaga não encontrada
+        </p>
+        <Link
+          href="/jobs"
+          className="text-blue-600 hover:underline mt-2 inline-block text-sm sm:text-base"
+        >
           Voltar para vagas
         </Link>
       </div>
@@ -77,9 +95,12 @@ export default function JobCandidatesPage() {
   }
 
   const invitedCount = candidates.filter(c => c.invited).length;
-  const averageScore = candidates.length > 0
-    ? Math.round(candidates.reduce((sum, c) => sum + c.score, 0) / candidates.length)
-    : 0;
+  const averageScore =
+    candidates.length > 0
+      ? Math.round(
+          candidates.reduce((sum, c) => sum + c.score, 0) / candidates.length
+        )
+      : 0;
 
   return (
     <div className="space-y-4 sm:space-y-6 p-4 sm:p-0">
@@ -94,13 +115,21 @@ export default function JobCandidatesPage() {
       {/* Job Info Card */}
       <Card>
         <CardHeader className="pb-3 sm:pb-6">
-          <CardTitle className="text-lg sm:text-xl lg:text-2xl">{job.title}</CardTitle>
-          <p className="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base leading-relaxed">{job.description}</p>
+          <CardTitle className="text-lg sm:text-xl lg:text-2xl">
+            {job.title}
+          </CardTitle>
+          <p className="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base leading-relaxed">
+            {job.description}
+          </p>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
-            {job.skills.map((skill) => (
-              <Badge key={skill} variant="secondary" className="text-xs sm:text-sm">
+            {job.skills.map(skill => (
+              <Badge
+                key={skill}
+                variant="secondary"
+                className="text-xs sm:text-sm"
+              >
                 {skill}
               </Badge>
             ))}
@@ -138,12 +167,14 @@ export default function JobCandidatesPage() {
           <Card>
             <CardContent className="py-8 sm:py-12 text-center">
               <Users className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-2 sm:mb-4" />
-              <p className="text-gray-500 text-sm sm:text-base">Nenhum candidato encontrado</p>
+              <p className="text-gray-500 text-sm sm:text-base">
+                Nenhum candidato encontrado
+              </p>
             </CardContent>
           </Card>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {candidates.map((candidate) => (
+            {candidates.map(candidate => (
               <CandidateCard
                 key={candidate.id}
                 candidate={candidate}

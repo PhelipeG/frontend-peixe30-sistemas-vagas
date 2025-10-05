@@ -1,13 +1,16 @@
 "use client";
 
+import { AxiosError } from "axios";
+import { AlertCircle } from "lucide-react";
+
 import React from "react";
+
+import { useAuth } from "@/contexts/auth-context";
+
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { AlertCircle } from "lucide-react";
-import { useAuth } from "@/contexts/auth-context";
-import { AxiosError } from "axios";
 
 export function LoginForm() {
   const [email, setEmail] = React.useState("");
@@ -50,7 +53,7 @@ export function LoginForm() {
           type="email"
           placeholder="admin@peixe30.com"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
           required
           disabled={isLoading}
         />
@@ -63,7 +66,7 @@ export function LoginForm() {
           type="password"
           placeholder="••••••••"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
           required
           disabled={isLoading}
         />
@@ -75,9 +78,7 @@ export function LoginForm() {
 
       <div className="text-sm text-center text-muted-foreground mt-4">
         <p>Credenciais padrão:</p>
-        <p className="font-mono text-xs mt-1">
-          admin@peixe30.com / admin123
-        </p>
+        <p className="font-mono text-xs mt-1">admin@peixe30.com / admin123</p>
       </div>
     </form>
   );

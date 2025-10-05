@@ -1,8 +1,10 @@
-'use client';
+"use client";
 
-import { JobForm } from '@/components/jobs/job-form';
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowLeft } from "lucide-react";
+
+import Link from "next/link";
+
+import { JobForm } from "@/components/jobs/job-form";
 
 export default function NewJobPage() {
   return (

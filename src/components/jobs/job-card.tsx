@@ -1,11 +1,27 @@
-import { Job } from '@/types';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Calendar, MapPin, DollarSign, Pencil, Trash2, Users } from 'lucide-react';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
-import Link from 'next/link';
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import {
+  Calendar,
+  DollarSign,
+  MapPin,
+  Pencil,
+  Trash2,
+  Users,
+} from "lucide-react";
+
+import Link from "next/link";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import { Job } from "@/types";
 
 interface JobCardProps {
   job: Job;
@@ -15,7 +31,7 @@ interface JobCardProps {
 export function JobCard({ job, onDelete }: JobCardProps) {
   const truncateDescription = (text: string, maxLength: number = 200) => {
     if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
+    return text.substring(0, maxLength) + "...";
   };
 
   return (
@@ -23,7 +39,7 @@ export function JobCard({ job, onDelete }: JobCardProps) {
       <CardHeader>
         <CardTitle className="text-xl">{job.title}</CardTitle>
         <div className="flex flex-wrap gap-2 mt-2">
-          {job.skills.map((skill) => (
+          {job.skills.map(skill => (
             <Badge key={skill} variant="secondary">
               {skill}
             </Badge>
@@ -55,13 +71,17 @@ export function JobCard({ job, onDelete }: JobCardProps) {
       </CardContent>
 
       <CardFooter className="flex flex-wrap gap-2">
-        <Button asChild className='bg-blue-600 text-white hover:bg-blue-700' size="sm">
+        <Button
+          asChild
+          className="bg-blue-600 text-white hover:bg-blue-700"
+          size="sm"
+        >
           <Link href={`/jobs/${job.id}/candidates`}>
             <Users className="w-4 h-4 mr-2" />
             Ver Match
           </Link>
         </Button>
-        <Button asChild  size="sm">
+        <Button asChild size="sm">
           <Link href={`/jobs/${job.id}/edit`}>
             <Pencil className="w-4 h-4 mr-2" />
             Editar

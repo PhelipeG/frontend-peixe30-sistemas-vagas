@@ -1,27 +1,32 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import api from '@/lib/api';
-import { Job } from '@/types';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { X, Loader2 } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { toast } from 'sonner';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2, X } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
+
+import { useState } from "react";
+
+import { useRouter } from "next/navigation";
+
+import api from "@/lib/api";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+
+import { Job } from "@/types";
 
 const jobSchema = z.object({
-  title: z.string().min(3, 'Título deve ter no mínimo 3 caracteres'),
-  description: z.string().min(10, 'Descrição deve ter no mínimo 10 caracteres'),
-  location: z.string().min(2, 'Localização é obrigatória'),
-  salaryRange: z.string().min(1, 'Faixa salarial é obrigatória'),
-  skills: z.array(z.string()).min(1, 'Adicione pelo menos uma habilidade'),
+  title: z.string().min(3, "Título deve ter no mínimo 3 caracteres"),
+  description: z.string().min(10, "Descrição deve ter no mínimo 10 caracteres"),
+  location: z.string().min(2, "Localização é obrigatória"),
+  salaryRange: z.string().min(1, "Faixa salarial é obrigatória"),
+  skills: z.array(z.string()).min(1, "Adicione pelo menos uma habilidade"),
 });
 
 type JobFormData = z.infer<typeof jobSchema>;
@@ -32,7 +37,7 @@ interface JobFormProps {
 }
 
 export function JobForm({ job, isEdit = false }: JobFormProps) {
-  const [skillInput, setSkillInput] = useState('');
+  const [skillInput, setSkillInput] = useState("");
   const [skills, setSkills] = useState<string[]>(job?.skills || []);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -45,10 +50,10 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
   } = useForm<JobFormData>({
     resolver: zodResolver(jobSchema),
     defaultValues: {
-      title: job?.title || '',
-      description: job?.description || '',
-      location: job?.location || '',
-      salaryRange: job?.salaryRange || '',
+      title: job?.title || "",
+      description: job?.description || "",
+      location: job?.location || "",
+      salaryRange: job?.salaryRange || "",
       skills: job?.skills || [],
     },
   });
@@ -58,15 +63,15 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
     if (trimmedSkill && !skills.includes(trimmedSkill)) {
       const updatedSkills = [...skills, trimmedSkill];
       setSkills(updatedSkills);
-      setValue('skills', updatedSkills);
-      setSkillInput('');
+      setValue("skills", updatedSkills);
+      setSkillInput("");
     }
   };
 
   const removeSkill = (skillToRemove: string) => {
-    const updatedSkills = skills.filter((skill) => skill !== skillToRemove);
+    const updatedSkills = skills.filter(skill => skill !== skillToRemove);
     setSkills(updatedSkills);
-    setValue('skills', updatedSkills);
+    setValue("skills", updatedSkills);
   };
 
   const onSubmit = async (data: JobFormData) => {
@@ -74,14 +79,16 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
     try {
       if (isEdit && job) {
         await api.put(`/jobs/updateJob/${job.id}`, data);
-        toast.success('Vaga atualizada com sucesso');
+        toast.success("Vaga atualizada com sucesso");
       } else {
-        await api.post('/jobs/create', data);
-        toast.success('Vaga criada com sucesso');
+        await api.post("/jobs/create", data);
+        toast.success("Vaga criada com sucesso");
       }
-      router.push('/jobs');
+      router.push("/jobs");
     } catch (error) {
-      toast.error('Ocorreu um erro' + (error instanceof Error ? `: ${error.message}` : ''));
+      toast.error(
+        "Ocorreu um erro" + (error instanceof Error ? `: ${error.message}` : "")
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -90,7 +97,7 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{isEdit ? 'Editar Vaga' : 'Nova Vaga'}</CardTitle>
+        <CardTitle>{isEdit ? "Editar Vaga" : "Nova Vaga"}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -98,7 +105,7 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
             <Label htmlFor="title">Título da Vaga *</Label>
             <Input
               id="title"
-              {...register('title')}
+              {...register("title")}
               placeholder="Ex: Desenvolvedor Full Stack"
             />
             {errors.title && (
@@ -110,12 +117,14 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
             <Label htmlFor="description">Descrição *</Label>
             <Textarea
               id="description"
-              {...register('description')}
+              {...register("description")}
               placeholder="Descreva as responsabilidades e requisitos da vaga..."
               rows={5}
             />
             {errors.description && (
-              <p className="text-sm text-red-600">{errors.description.message}</p>
+              <p className="text-sm text-red-600">
+                {errors.description.message}
+              </p>
             )}
           </div>
 
@@ -124,11 +133,13 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
               <Label htmlFor="location">Localização *</Label>
               <Input
                 id="location"
-                {...register('location')}
+                {...register("location")}
                 placeholder="Ex: São Paulo - SP ou Remote"
               />
               {errors.location && (
-                <p className="text-sm text-red-600">{errors.location.message}</p>
+                <p className="text-sm text-red-600">
+                  {errors.location.message}
+                </p>
               )}
             </div>
 
@@ -136,11 +147,13 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
               <Label htmlFor="salaryRange">Faixa Salarial *</Label>
               <Input
                 id="salaryRange"
-                {...register('salaryRange')}
+                {...register("salaryRange")}
                 placeholder="Ex: R$ 8.000 - R$ 12.000"
               />
               {errors.salaryRange && (
-                <p className="text-sm text-red-600">{errors.salaryRange.message}</p>
+                <p className="text-sm text-red-600">
+                  {errors.salaryRange.message}
+                </p>
               )}
             </div>
           </div>
@@ -151,9 +164,9 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
               <Input
                 id="skills"
                 value={skillInput}
-                onChange={(e) => setSkillInput(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
+                onChange={e => setSkillInput(e.target.value)}
+                onKeyPress={e => {
+                  if (e.key === "Enter") {
                     e.preventDefault();
                     addSkill();
                   }
@@ -168,8 +181,12 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
               <p className="text-sm text-red-600">{errors.skills.message}</p>
             )}
             <div className="flex flex-wrap gap-2 mt-2">
-              {skills.map((skill) => (
-                <Badge key={skill} variant="secondary" className="flex items-center gap-1">
+              {skills.map(skill => (
+                <Badge
+                  key={skill}
+                  variant="secondary"
+                  className="flex items-center gap-1"
+                >
                   {skill}
                   <button
                     type="button"
@@ -191,15 +208,15 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
                   Salvando...
                 </>
               ) : isEdit ? (
-                'Atualizar Vaga'
+                "Atualizar Vaga"
               ) : (
-                'Criar Vaga'
+                "Criar Vaga"
               )}
             </Button>
             <Button
               type="button"
               variant="outline"
-              onClick={() => router.push('/jobs')}
+              onClick={() => router.push("/jobs")}
             >
               Cancelar
             </Button>

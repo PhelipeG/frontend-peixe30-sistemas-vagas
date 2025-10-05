@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import api from "@/lib/api";
-import { Job, PaginatedResponse } from "@/types";
-import { JobCard } from "@/components/jobs/job-card";
-import { Pagination } from "@/components/shared/pagination";
-import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { toast } from "sonner";
+
+import { useEffect, useState } from "react";
+
+import { useRouter } from "next/navigation";
+
+import api from "@/lib/api";
 
 import {
   AlertDialog,
@@ -19,8 +19,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+
+import { JobCard } from "@/components/jobs/job-card";
+import { Pagination } from "@/components/shared/pagination";
+
+import { Job, PaginatedResponse } from "@/types";
 
 export default function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -81,10 +86,17 @@ export default function JobsPage() {
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Vagas</h1>
-          <p className="text-gray-600 mt-1 text-sm sm:text-base">Gerencie as vagas disponíveis</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+            Vagas
+          </h1>
+          <p className="text-gray-600 mt-1 text-sm sm:text-base">
+            Gerencie as vagas disponíveis
+          </p>
         </div>
-        <Button onClick={() => router.push("/jobs/new")} className="w-full sm:w-auto">
+        <Button
+          onClick={() => router.push("/jobs/new")}
+          className="w-full sm:w-auto"
+        >
           <Plus className="w-4 h-4 mr-2" />
           Nova Vaga
         </Button>
@@ -92,8 +104,13 @@ export default function JobsPage() {
 
       {jobs.length === 0 ? (
         <div className="text-center py-8 sm:py-12 px-4">
-          <p className="text-gray-500 text-base sm:text-lg">Nenhuma vaga cadastrada</p>
-          <Button onClick={() => router.push("/jobs/new")} className="mt-4 w-full sm:w-auto">
+          <p className="text-gray-500 text-base sm:text-lg">
+            Nenhuma vaga cadastrada
+          </p>
+          <Button
+            onClick={() => router.push("/jobs/new")}
+            className="mt-4 w-full sm:w-auto"
+          >
             <Plus className="w-4 h-4 mr-2" />
             Criar Primeira Vaga
           </Button>
@@ -101,11 +118,11 @@ export default function JobsPage() {
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {jobs.map((job) => (
+            {jobs.map(job => (
               <JobCard
                 key={job.id}
                 job={job}
-                onDelete={(id) => setJobToDelete(id)}
+                onDelete={id => setJobToDelete(id)}
               />
             ))}
           </div>

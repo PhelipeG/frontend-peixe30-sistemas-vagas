@@ -1,13 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
-import api from "@/lib/api";
-import { Job } from "@/types";
-import { JobForm } from "@/components/jobs/job-form";
-import { ArrowLeft, Frown} from "lucide-react";
+import { ArrowLeft, Frown } from "lucide-react";
+
+import { useEffect, useState } from "react";
+
 import Link from "next/link";
+import { useParams } from "next/navigation";
+
+import api from "@/lib/api";
+
 import { Spinner } from "@/components/ui/spinner";
+
+import { JobForm } from "@/components/jobs/job-form";
+
+import { Job } from "@/types";
 
 export default function EditJobPage() {
   const [job, setJob] = useState<Job | null>(null);
@@ -41,7 +47,9 @@ export default function EditJobPage() {
     return (
       <div className="text-center py-8 sm:py-12 px-4">
         <Frown className="w-16 h-16 sm:w-32 sm:h-32 text-gray-500 mx-auto" />
-        <p className="text-gray-500 text-sm sm:text-base mt-2 sm:mt-4">Vaga não encontrada</p>
+        <p className="text-gray-500 text-sm sm:text-base mt-2 sm:mt-4">
+          Vaga não encontrada
+        </p>
         <Link
           href="/jobs"
           className="text-blue-600 hover:text-blue-900 mt-2 inline-block text-sm sm:text-base"
