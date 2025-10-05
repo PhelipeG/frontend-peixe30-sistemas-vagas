@@ -12,6 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Peixe 30 - Sistema de Vagas",
   description: "Sistema de gerenciamento de vagas e candidatos",
+  keywords: 'vagas, empregos, candidatos, matching, RH',
 };
 
 export default function RootLayout({

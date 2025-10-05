@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus } from "lucide-react";
+import { Plus, Users } from "lucide-react";
 
 import { useJobs } from "@/hooks/useJobs";
 
@@ -74,13 +74,23 @@ export default function JobsPage() {
             Gerencie as vagas disponíveis
           </p>
         </div>
-        <Button
-          onClick={() => router.push("/jobs/new")}
-          className="w-full sm:w-auto"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Nova Vaga
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          <Button
+            variant="outline"
+            onClick={() => router.push("/candidates")}
+            className="w-full sm:w-auto"
+          >
+            <Users className="w-4 h-4 mr-2" />
+            Ver Candidatos
+          </Button>
+          <Button
+            onClick={() => router.push("/jobs/new")}
+            className="w-full sm:w-auto"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Nova Vaga
+          </Button>
+        </div>
       </div>
 
       {jobs.length === 0 ? (
