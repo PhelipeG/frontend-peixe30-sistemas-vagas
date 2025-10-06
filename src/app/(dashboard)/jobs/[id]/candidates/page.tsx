@@ -57,12 +57,30 @@ export default function JobCandidatesPage() {
         candidateId,
       });
       toast.success("Candidato convidado com sucesso!");
-      fetchCandidates();
-    } catch (error) {
-      toast.error(
-        "Não foi possível convidar o candidato" +
-          (error instanceof Error ? `: ${error.message}` : "")
-      );
+      setCandidates(prev => 
+        prev.map(candidate => 
+          candidate.id === candidateId 
+            ? { ...candidate, invited: true }
+            : candidate
+        )
+      );  
+    } catch (error: any) {
+      // Verificar se é um erro de conflito (candidato já convidado)
+      if (error.response?.status === 409 && error.response?.data?.alreadyInvited) {
+        toast.warning("Este candidato já foi convidado para esta vaga!");
+        setCandidates(prev => 
+          prev.map(candidate => 
+            candidate.id === candidateId 
+              ? { ...candidate, invited: true }
+              : candidate
+          )
+        );
+      } else {
+        toast.error(
+          "Não foi possível convidar o candidato" +
+            (error instanceof Error ? `: ${error.message}` : "")
+        );
+      }
     } finally {
       setInvitingId(null);
     }
