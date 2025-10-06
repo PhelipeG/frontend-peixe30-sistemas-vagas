@@ -94,11 +94,6 @@ Antes de começar, certifique-se de ter instalado em sua máquina:
 - **URL de Staging**: Em desenvolvimento (não disponível ainda)
 - **Demonstração Local**: `http://localhost:3000`
 
-### Backend (API)
-- **URL da API**: Em desenvolvimento (não disponível ainda)
-- **Documentação da API**: Em desenvolvimento (não disponível ainda)
-- **API Local**: `http://localhost:3333/api`
-
 ### Acesso de Demonstração
 Para testar localmente:
 1. Clone e configure o backend
@@ -179,17 +174,18 @@ NODE_ENV=production
 
 | Fase | Descrição | Tempo Estimado |
 |------|-----------|----------------|
-| **Planejamento** | Análise de requisitos e arquitetura | 2h |
+| **Planejamento** | Análise de requisitos e arquitetura | 3h |
 | **Setup Inicial** | Configuração do projeto Next.js | 2h |
-| **UI/UX Design** | Implementação com shadcn/ui e Tailwind | 3h |
-| **Autenticação** | Sistema de login e contexto | 2h |
-| **CRUD de Vagas** | Páginas de listagem, criação e edição | 4h |
+| **UI/UX Design** | Implementação com shadcn/ui e Tailwind | 2h |
+| **Autenticação** | Sistema de login e contexto | 1h:30m |
+| **CRUD de Vagas** | Páginas de listagem, criação e edição | 5h |
 | **Sistema de Matching** | Página de candidatos e scores | 2h |
 | **Responsividade** | Adaptação mobile-first | 2h |
-| **Validações** | Formulários e tratamento de erros | 1h |
-| **Documentação** | README e comentários | 1h |
+| **Validações** | Formulários e tratamento de erros | 1h:30m |
+| **Refatoração** | Organização de schemas e melhoria de código | 3h |
+| **Documentação** | README e comentários | 1h:15m |
 
-### 🎯 **Total: ~19 horas**
+### 🎯 **Total: ~22 horas**
 
 ## 📄 Licença
 
