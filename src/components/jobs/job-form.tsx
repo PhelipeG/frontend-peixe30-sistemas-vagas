@@ -85,7 +85,6 @@ export function JobForm({ job, isEdit = false }: JobFormProps) {
         }
       }
     } catch (error) {
-      // Erro já tratado no hook
       console.error("Erro no formulário:", error);
     }
   };

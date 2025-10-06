@@ -38,7 +38,6 @@ export default function CandidatesPage() {
     fetchCandidates();
   }, []);
 
-  // Filtrar candidatos por nome
   const filteredCandidates = useMemo(() => {
     if (!searchTerm.trim()) return candidates;
     
@@ -75,7 +74,6 @@ export default function CandidatesPage() {
         </div>
       </div>
 
-      {/* Busca */}
       <div className="w-full max-w-md">
         <SearchInput
           value={searchTerm}
@@ -150,7 +148,6 @@ function CandidateCard({ candidate }: { candidate: Candidate }) {
           </div>
         )}
 
-        {/* Skills */}
         <div>
           <p className="text-xs font-medium text-gray-700 mb-2">Habilidades:</p>
           <div className="flex flex-wrap gap-1">

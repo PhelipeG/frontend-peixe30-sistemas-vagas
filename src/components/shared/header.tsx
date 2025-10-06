@@ -82,7 +82,6 @@ export function Header() {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="sm:hidden">
             <Button
               variant="ghost"
@@ -126,8 +125,7 @@ export function Header() {
                   Candidatos
                 </Link>
               </div>
-
-              {/* Mobile User Info */}
+              
               <div className="border-t border-gray-200 pt-3">
                 <div className="flex items-center space-x-2 text-sm text-gray-700 px-2 mb-3">
                   <User className="w-4 h-4" />

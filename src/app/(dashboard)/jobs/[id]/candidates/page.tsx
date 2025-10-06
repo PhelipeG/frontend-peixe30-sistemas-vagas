@@ -25,7 +25,6 @@ export default function JobCandidatesPage() {
 
   const { currentJob: job, isLoading: jobLoading, fetchJobById } = useJobs();
 
-  // Fetch de candidatos (mantido separado pois é específico desta página)
   const fetchCandidates = useCallback(async () => {
     try {
       setCandidatesLoading(true);
