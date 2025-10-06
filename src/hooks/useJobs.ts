@@ -48,8 +48,8 @@ export function useJobs(options: UseJobsOptions = {}): UseJobsReturn {
     try {
       setIsLoading(true);
       const currentPage = targetPage ?? page;
-      
-      const response = await api.get<PaginatedResponse<Job>>('/jobs/all', {
+
+      const response = await api.get<PaginatedResponse<Job>>('/api/jobs/all', {
         params: { page: currentPage, limit },
       });
 
@@ -73,7 +73,7 @@ export function useJobs(options: UseJobsOptions = {}): UseJobsReturn {
   const fetchJobById = useCallback(async (id: string): Promise<Job | null> => {
     try {
       setIsLoading(true);
-      const response = await api.get<Job>(`/jobs/${id}`);
+      const response = await api.get<Job>(`/api/jobs/${id}`);
       const job = response.data;
       setCurrentJob(job);
       return job;
@@ -91,7 +91,7 @@ export function useJobs(options: UseJobsOptions = {}): UseJobsReturn {
   const createJob = useCallback(async (data: CreateJobData): Promise<Job | null> => {
     try {
       setIsSubmitting(true);
-      const response = await api.post<Job>('/jobs/create', data);
+      const response = await api.post<Job>('/api/jobs/create', data);
       const newJob = response.data;
       
       toast.success('Vaga criada com sucesso!');
@@ -113,7 +113,7 @@ export function useJobs(options: UseJobsOptions = {}): UseJobsReturn {
   const updateJob = useCallback(async (id: string, data: UpdateJobData): Promise<Job | null> => {
     try {
       setIsSubmitting(true);
-      const response = await api.put<Job>(`/jobs/updateJob/${id}`, data);
+      const response = await api.put<Job>(`/api/jobs/updateJob/${id}`, data);
       const updatedJob = response.data;
       
       toast.success('Vaga atualizada com sucesso!');
@@ -140,7 +140,7 @@ export function useJobs(options: UseJobsOptions = {}): UseJobsReturn {
   const deleteJob = useCallback(async (id: string): Promise<boolean> => {
     try {
       setIsDeleting(true);
-      await api.delete(`/jobs/deleteJob/${id}`);
+      await api.delete(`/api/jobs/deleteJob/${id}`);
       
       toast.success('Vaga deletada com sucesso!');
 

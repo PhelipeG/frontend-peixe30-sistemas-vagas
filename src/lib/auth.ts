@@ -4,14 +4,14 @@ import api from "./api";
 
 export const authService = {
   async login(email: string, password: string): Promise<LoginResponse> {
-    const response = await api.post<LoginResponse>("/auth/login", {
+    const response = await api.post<LoginResponse>("/api/auth/login", {
       email,
       password,
     });
     return response.data;
   },
   async getMe(): Promise<User> {
-    const response = await api.get<{ user: User }>("/auth/me");
+    const response = await api.get<{ user: User }>("/api/auth/me");
     return response.data.user;
   },
   saveToken(token: string) {

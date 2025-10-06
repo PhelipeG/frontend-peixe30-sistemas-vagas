@@ -22,7 +22,7 @@ export default function CandidatesPage() {
     const fetchCandidates = async () => {
       try {
         setIsLoading(true);
-        const response = await api.get<Candidate[]>('/candidates/all');
+        const response = await api.get<Candidate[]>('/api/candidates/all');
         setCandidates(response.data);
       } catch (error) {
         toast.error(

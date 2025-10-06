@@ -30,7 +30,7 @@ export default function JobCandidatesPage() {
     try {
       setCandidatesLoading(true);
       const response = await api.get<Candidate[]>(
-        `/candidates/jobs/${params.id}/getMatchingCandidates`
+        `/api/candidates/jobs/${params.id}/getMatchingCandidates`
       );
       setCandidates(response.data);
     } catch (error) {
@@ -53,7 +53,7 @@ export default function JobCandidatesPage() {
   const handleInvite = async (candidateId: string) => {
     setInvitingId(candidateId);
     try {
-      await api.post("/candidates/invitations", {
+      await api.post("/api/candidates/invitations", {
         jobId: params.id,
         candidateId,
       });
